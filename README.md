@@ -1,0 +1,1 @@
+# Process-Data-with-Microsoft-Azure-Synapse-Link-for-Cosmo-DB
