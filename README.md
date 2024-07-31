@@ -3,8 +3,6 @@
 
 
 Part - 1                                    
-Process Data with Microsoft Azure Synapse Link for Cosmos DBProcess Data with Microsoft Azure Synapse Link for Cosmos DB
-Jun 2024 - Jun 2024Jun 2024 - Jun 2024
 Project Context:
 Aimed to establish a real-time analytics pipeline for customer sales data to enhance business decision-making capabilities.
 
