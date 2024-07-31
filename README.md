@@ -21,4 +21,4 @@ Approach:
 *Outcomes:
 Successfully set up a real-time data ingestion and processing pipeline, enabling efficient data transformation and storage in Azure Synapse Analytics, making it ready for further analysis and visualization.
 
-Paert 2 - Customer Insights Dashboard: Azure Synapse Analytics + Power BI for Data Integration & Visualization
+Part 2 - Customer Insights Dashboard: Azure Synapse Analytics + Power BI for Data Integration & Visualization
