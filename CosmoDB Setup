@@ -1,0 +1,43 @@
+
+### Step 1. Read the database information ###
+
+import azure.cosmos
+from azure.cosmos.partition_key import PartitionKey
+ 
+database = cosmos_client.get_database_client('RetailDemo')
+print('Database RetailDemo Read')
+ 
+container = database.get_container_client('WebsiteData')
+print('Container WebsiteData Read')
+
+
+##########################################################
+
+### Step 2. Upload data ### 
+
+%%upload --databaseName RetailDemo --containerName WebsiteData --url https://cosmosnotebooksdata.blob.core.windows.net/notebookdata/websiteData.json
+
+
+##########################################################
+
+
+### Step 3. Read from Cosmo DB analytical store into a Spark DataFrame and display 10 rows from the DataFrame ### 
+
+
+df = spark.read .format("cosmos.olap") .option("spark.synapse.linkedService", "LS_CosmosDb_RetailDemo") .option("spark.cosmos.container", "WebsiteData") .load()
+ 
+display(df.limit(10))
+
+
+##########################################################
+
+### Step 4. Aggregation od the Data ### 
+from pyspark.sql.functions import *
+df = df.agg(sum(col('Price')))
+df.show()
+
+
+##########################################################
+
+
+
