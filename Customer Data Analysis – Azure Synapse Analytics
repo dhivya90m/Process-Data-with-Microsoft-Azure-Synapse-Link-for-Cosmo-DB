@@ -1,0 +1,105 @@
+
+df = spark.read .format("cosmos.olap") .option("spark.synapse.linkedService", "LS_cosmosDB_ReatilDemo") .option("spark.cosmos.container", "WebsiteData") .load()
+ 
+display(df.limit(10))
+
+
+
+%%pyspark
+
+# Example analysis: Calculate the total number of unique customers
+unique_customers = df.select("UserName").distinct().count()
+print(f"Total unique customers: {unique_customers}")
+
+# Example analysis: Calculate average transaction amount
+average_transaction = df.agg({"Price": "avg"}).collect()[0][0]
+print(f"Average transaction amount: {average_transaction}")
+
+# Example analysis: Count of actions by type
+action_counts = df.groupBy("Action").count()
+action_counts.show()
+
+
+
+
+%%pyspark
+
+# Use matplotlib for visualizations
+import matplotlib.pyplot as plt
+
+# Example visualization: Plot transaction amounts
+transaction_amounts = df.select("Price").rdd.flatMap(lambda x: x).collect()
+
+plt.hist(transaction_amounts, bins=50)
+plt.xlabel('Transaction Amount')
+plt.ylabel('Frequency')
+plt.title('Distribution of Transaction Amounts')
+plt.show()
+
+
+
+%%pyspark
+
+# Bar chart for Action counts
+action_counts_df = action_counts.toPandas()
+action_counts_df.plot(kind='bar', x='Action', y='count', legend=False)
+plt.xlabel('Action')
+plt.ylabel('Count')
+plt.title('Count of Actions by Type')
+plt.show()
+
+# Line chart for transactions over time
+df_cleaned.groupBy("EventDate").sum("Price").orderBy("EventDate").toPandas().plot(kind='line', x='EventDate', y='sum(Price)')
+plt.xlabel('Date')
+plt.ylabel('Total Transaction Amount')
+plt.title('Total Transaction Amount Over Time')
+plt.show()
+
+
+
+
+
+%%pyspark
+
+# Example: Calculate total revenue
+total_revenue = df.agg({"Price": "sum"}).collect()[0][0]
+print(f"Total Revenue: {total_revenue}")
+
+# Example: Calculate the number of transactions per country
+transactions_per_country = df.groupBy("Country").count()
+transactions_per_country.show()
+
+# Example: Find the top 5 most purchased items
+top_items = df.groupBy("Item").count().orderBy("count", ascending=False).limit(5)
+top_items.show()
+
+
+
+
+
+%%pyspark
+
+import matplotlib.pyplot as plt
+
+# Example: Histogram of transaction amounts
+transaction_amounts = df.select("Price").rdd.flatMap(lambda x: x).collect()
+plt.hist(transaction_amounts, bins=50)
+plt.xlabel('Transaction Amount')
+plt.ylabel('Frequency')
+plt.title('Distribution of Transaction Amounts')
+plt.savefig('Desktop/histogram.png')
+plt.show()
+
+# Example: Bar chart for action counts
+action_counts_df = action_counts.toPandas()
+action_counts_df.plot(kind='bar', x='Action', y='count', legend=False)
+plt.xlabel('Action')
+plt.ylabel('Count')
+plt.title('Count of Actions by Type')
+plt.savefig('Desktop/bar_chart.png')
+plt.show()
+
+
+
+df.write.saveAsTable("websiteData")
+
