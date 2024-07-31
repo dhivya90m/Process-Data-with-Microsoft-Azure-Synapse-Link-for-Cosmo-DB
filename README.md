@@ -1,6 +1,8 @@
 # Process-Data-with-Microsoft-Azure-Synapse-Link-for-Cosmo-DB
-Part - 1
 
+
+
+Part - 1                                    
 Process Data with Microsoft Azure Synapse Link for Cosmos DBProcess Data with Microsoft Azure Synapse Link for Cosmos DB
 Jun 2024 - Jun 2024Jun 2024 - Jun 2024
 Project Context:
@@ -9,7 +11,7 @@ Aimed to establish a real-time analytics pipeline for customer sales data to enh
 Objectives:
 The objective was to import JSON data into Azure Cosmos DB, enable real-time analytics using Azure Synapse Link, and transform the data using Apache Spark in Azure Synapse Analytics.
 
-Approach:
+Approach:                        
 Data Ingestion:
 - Imported JSON data into Azure Cosmos DB.
 - Enabled Azure Synapse Link to facilitate real-time analytics on Cosmos DB data.
